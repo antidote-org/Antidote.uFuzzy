@@ -11,6 +11,8 @@ dotnet add package Antidote.uFuzzy
 ```
 
 # or with paket
+
+```
 paket add Antidote.uFuzzy --project /path/to/project.fsproj
 ```
 
