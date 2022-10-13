@@ -23,8 +23,8 @@ describe """uFuzzy.search""" (fun () ->
 
         let uf = uFuzzy.Create( Antidote.UFuzzy.UFuzzy.IUFuzzyOptions() )
 
-        let result = uf.filter(haystack, needle)
-
-        Assert.AreEqual(result.Count, 1)
+        let idxs = uf.filter(haystack, needle)
+        let result = idxs |> Seq.map(fun x -> haystack.[int x]) |> Seq.toArray
+        Assert.AreEqual(result.[0] , "/feeding/the/catPic.jpg")
     )
 )

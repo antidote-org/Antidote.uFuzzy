@@ -33,62 +33,17 @@ Exemple 1:
 open Antidote.uFuzzy
 open Fable.Core
 
-let fruitList =
-    [
+let haystack =
+    [|
         "Apple"
         "Orange"
         "Banana"
-    ]
+    |]
 
-let fuse = fuse.Create(ResizeArray fruitList)
+let ufzzy = ufuzzy.Create(haystack)
 
-let result = fuse.search("apple")
-// { item: 'Apple', refIndex: 0 }
-```
-
-Exemple 2:
-
-```fs
-open AntiDote.uFuzzy
-open Fable.Core
-
-let books =
-    [
-        {|
-            title = "Old Man's War"
-            author =
-                {|
-                    firstName = "John"
-                    lastName = "Scalzi"
-                |}
-        |}
-        {|
-            title = "The Lock Artist"
-            author =
-                {|
-                    firstName = "Steve"
-                    lastName = "Hamilton"
-                |}
-        |}
-    ]
-
-let fuse =
-    fuse.Create(
-        ResizeArray books,
-        Fuse.IFuseOptions<_>(
-            keys =
-                [|
-                    U3.Case2 "title"
-                    U3.Case2 "author.firstName"
-                |]
-        )
-    )
-
-let result = fuse.search("jon")
-
-// The result is typed, using the input list type
-result.[0].item.author.firstName // John
-result.[0].item.author.lastName // Scalzi
+let idxs = fuse.filter("apple")
+let result = idxs |> Array.map(fun x -> haystack.[int x])
 ```
 
 ## To publish

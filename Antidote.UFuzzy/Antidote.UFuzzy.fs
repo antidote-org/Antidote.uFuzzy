@@ -74,40 +74,38 @@ module UFuzzy =
         /// allows for a single-char substitution, transposition, insertion, or deletion within terms (excluding first and last chars)
         | SingleError = 1
 
+    [<RequireQualifiedAccess>]
+    type OptionsIntraSub =
+        | N0 = 0
+        | N1 = 1
     [<AllowNullLiteral>]
     [<Global>]
     type IUFuzzyOptions [<ParamObject; Emit("$0")>]
         (
             ?interLft: BoundMode,
-            ?interRgt: BoundMode
+            ?interRgt: BoundMode,
+            ?interSplit: PartialRegExp,
+            ?intraChars: PartialRegExp,
+            ?intraIns: float,
+            ?intraMode: IntraMode,
+            ?intraSub: OptionsIntraSub,
+            ?intraTrn: OptionsIntraSub,
+            ?intraDel: OptionsIntraSub,
+            ?intraFilt:(string -> string -> float -> bool),
+            ?sort: (Info -> Array<string> -> string -> InfoIdxOrder)
         ) =
 
         member val interLft: BoundMode option = jsNative with get, set
         member val interRgt: BoundMode option = jsNative with get, set
-
-
-        // /// term segmentation & punct/whitespace merging
-        // abstract interSplit: PartialRegExp option with get, set
-        // abstract intraSplit: PartialRegExp option with get, set
-        // /// inter-term modes, during .info() can discard matches when bounds conditions are not met
-
-        // /// allowance between terms
-        // abstract interChars: PartialRegExp option with get, set
-        // abstract interIns: float option with get, set
-        // /// allowance between chars within terms
-        // abstract intraChars: PartialRegExp option with get, set
-        // abstract intraIns: float option with get, set
-        // /// error tolerance mode within terms. will clamp intraIns to 1 when set to SingleError
-        // abstract intraMode: IntraMode option with get, set
-        // /// max substitutions (when intraMode: 1)
-        // abstract intraSub: OptionsIntraSub option with get, set
-        // /// max transpositions (when intraMode: 1)
-        // abstract intraTrn: OptionsIntraSub option with get, set
-        // /// max omissions/deletions (when intraMode: 1)
-        // abstract intraDel: OptionsIntraSub option with get, set
-        // /// post-filters matches during .info() based on cmp of term in needle vs partial match
-        // abstract intraFilt: (string -> string -> float -> bool) option with get, set
-        // abstract sort: (Info -> ResizeArray<string> -> string -> InfoIdxOrder) option with get, set
+        member val intraSplit: PartialRegExp option = jsNative with get, set
+        member val intraChars: PartialRegExp option = jsNative with get, set
+        member val intraIns: float option = jsNative with get, set
+        member val intraMode: IntraMode option = jsNative with get, set
+        member val intraSub: OptionsIntraSub option = jsNative with get, set
+        member val intraTrn: OptionsIntraSub option = jsNative with get, set
+        member val intraDel: OptionsIntraSub option = jsNative with get, set
+        member val intraFilt: (string -> string -> float -> bool) option = jsNative with get, set
+        member val sort: (Info -> ResizeArray<string> -> string -> InfoIdxOrder) option = jsNative with get, set
 
     [<AllowNullLiteral>]
     type Info =
@@ -133,8 +131,3 @@ module UFuzzy =
         abstract terms: ResizeArray<float> with get, set
         /// offset ranges within match for highlighting: [startIdx0, endIdx0, startIdx1, endIdx1,...]
         abstract ranges: ResizeArray<ResizeArray<float>> with get, set
-
-    [<RequireQualifiedAccess>]
-    type OptionsIntraSub =
-        | N0 = 0
-        | N1 = 1
