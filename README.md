@@ -1,4 +1,5 @@
 # Antidote.uFuzzy
+Github Repo [link](https://github.com/antidote-org/Antidote.uFuzzy)
 
 Binding for npm https://www.npmjs.com/package/@leeoniya/ufuzzy package
 
