@@ -6,11 +6,11 @@ Binding for npm https://www.npmjs.com/package/@leeoniya/ufuzzy package
 ## Installation
 
 ```
-# using nuget
+## using nuget
 dotnet add package Antidote.uFuzzy
 ```
 
-# or with paket
+## or with paket
 
 ```
 paket add Antidote.uFuzzy --project /path/to/project.fsproj
