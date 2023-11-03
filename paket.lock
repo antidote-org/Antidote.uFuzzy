@@ -1,8 +1,8 @@
 STORAGE: NONE
 NUGET
   remote: https://api.nuget.org/v3/index.json
-    Fable.Core (3.6.2)
-    FSharp.Core (5.0.2) - redirects: force
+    Fable.Core (4.2)
+    FSharp.Core (7.0.401)
     Microsoft.Build.Tasks.Git (1.1.1) - copy_local: true
     Microsoft.SourceLink.Common (1.1.1) - copy_local: true
     Microsoft.SourceLink.GitHub (1.1.1) - copy_local: true
